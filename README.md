@@ -1,4 +1,4 @@
-# 🚀 Rails API Template with Docker
+# 🚀 Rails API with Docker
 
 ## 📦 使用技術
 
