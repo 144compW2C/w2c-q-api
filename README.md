@@ -1,10 +1,8 @@
 # 🚀 Rails API Template with Docker
 
-## このリポジトリは、Docker 環境上で Ruby on Rails（API モード）を素早く立ち上げるためのテンプレートです。
-
 ## 📦 使用技術
 
--   **Ruby on Rails (API モード)**
+-   **Ruby on Rails (API)**
 -   **MySQL**
 -   **Docker / Docker Compose**
 
@@ -31,8 +29,8 @@
 ### 1. リポジトリをクローン
 
 ```bash
-git clone https://github.com/UTakuto/rails-template.git
-cd rails-template
+git clone https://github.com/144compW2C/w2c-q-api.git
+cd w2c-q-api
 ```
 
 ### 2. service ディレクトリ内で Rails API アプリを作成（初回のみ）
@@ -77,4 +75,3 @@ docker compose up
 
 -   フロントエンド（Next.js など）と組み合わせて使用することを想定しています。
 -   必要に応じて `CORS`, `Serializer`, `認証ライブラリ` を追加してください。
-    """
