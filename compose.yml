@@ -25,13 +25,13 @@ services:
               source: ./db_data
               target: /var/lib/mysql
 
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        ports:
-            - "${PHPMYADIN_PORT}:80"
-        environment:
-            PMA_HOST: db
-            PMA_USER: ${MYSQL_USER}
-            PMA_PASSWORD: ${MYSQL_PASSWORD}
-        depends_on:
-            - db
+    # phpmyadmin:
+    #     image: phpmyadmin/phpmyadmin
+    #     ports:
+    #         - "${PHPMYADIN_PORT}:80"
+    #     environment:
+    #         PMA_HOST: db
+    #         PMA_USER: ${MYSQL_USER}
+    #         PMA_PASSWORD: ${MYSQL_PASSWORD}
+    #     depends_on:
+    #         - db
