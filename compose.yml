@@ -1,0 +1,37 @@
+services:
+    web:
+        build: .
+        environment:
+            MYSQL_HOST: ${MYSQL_HOST}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        ports:
+            - "${RAILS_PORT}:3000"
+        volumes:
+            - type: bind
+              source: ./service
+              target: /service
+        depends_on:
+            - db
+
+    db:
+        image: mysql:8.3
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        ports:
+            - "${MYSQL_PORT}:3306"
+        volumes:
+            - type: bind
+              source: ./db_data
+              target: /var/lib/mysql
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - "${PHPMYADIN_PORT}:80"
+        environment:
+            PMA_HOST: db
+            PMA_USER: ${MYSQL_USER}
+            PMA_PASSWORD: ${MYSQL_PASSWORD}
+        depends_on:
+            - db
