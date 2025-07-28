@@ -10,7 +10,68 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_24_102954) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_28_072902) do
+  create_table "answers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "problem_id"
+    t.bigint "selected_option_id"
+    t.text "answer_text"
+    t.boolean "is_correct", default: false
+    t.boolean "delete_flag", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["problem_id"], name: "index_answers_on_problem_id"
+    t.index ["selected_option_id"], name: "index_answers_on_selected_option_id"
+    t.index ["user_id"], name: "index_answers_on_user_id"
+  end
+
+  create_table "options", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "problem_id"
+    t.text "input_type", null: false
+    t.text "option_name"
+    t.text "content"
+    t.text "language"
+    t.text "editor_template"
+    t.boolean "delete_flag", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["problem_id"], name: "index_options_on_problem_id"
+  end
+
+  create_table "problems", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "title", null: false
+    t.text "body"
+    t.bigint "tag_id"
+    t.bigint "status_id"
+    t.bigint "creator_id", null: false
+    t.bigint "reviewer_id"
+    t.integer "level"
+    t.integer "difficulty"
+    t.boolean "is_multiple_choice"
+    t.datetime "reviewed_at"
+    t.boolean "delete_flag", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_problems_on_creator_id"
+    t.index ["reviewer_id"], name: "index_problems_on_reviewer_id"
+    t.index ["status_id"], name: "index_problems_on_status_id"
+    t.index ["tag_id"], name: "index_problems_on_tag_id"
+  end
+
+  create_table "statuses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "status_name", null: false
+    t.boolean "delete_flag", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "tag_name", null: false
+    t.boolean "delete_flag", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -23,4 +84,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_24_102954) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "answers", "options", column: "selected_option_id"
+  add_foreign_key "answers", "problems"
+  add_foreign_key "answers", "users"
+  add_foreign_key "options", "problems"
+  add_foreign_key "problems", "statuses"
+  add_foreign_key "problems", "tags"
+  add_foreign_key "problems", "users", column: "creator_id"
+  add_foreign_key "problems", "users", column: "reviewer_id"
 end
