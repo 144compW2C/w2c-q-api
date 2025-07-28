@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyText
+  body: MyText
+  level: 1
+  difficulty: 1
+  is_multiple_choice: false
+  reviewed_at: 2025-07-28 07:13:55
+  delete_flag: false
+  tag: one
+  status: one
+  creator: one
+  reviewer: one
+
+two:
+  title: MyText
+  body: MyText
+  level: 1
+  difficulty: 1
+  is_multiple_choice: false
+  reviewed_at: 2025-07-28 07:13:55
+  delete_flag: false
+  tag: two
+  status: two
+  creator: two
+  reviewer: two
