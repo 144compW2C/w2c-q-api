@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  problem: one
+  input_type: MyText
+  option_name: MyText
+  content: MyText
+  language: MyText
+  editor_template: MyText
+  delete_flag: false
+
+two:
+  problem: two
+  input_type: MyText
+  option_name: MyText
+  content: MyText
+  language: MyText
+  editor_template: MyText
+  delete_flag: false
