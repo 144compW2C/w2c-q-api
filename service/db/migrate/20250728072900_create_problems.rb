@@ -1,7 +1,7 @@
 class CreateProblems < ActiveRecord::Migration[7.1]
   def change
     create_table :problems, id: :bigint do |t|
-      t.text :title , null: false
+      t.text :title, null: false
       t.text :body
       t.references :tag, foreign_key: true
       t.references :status, foreign_key: true
@@ -10,6 +10,8 @@ class CreateProblems < ActiveRecord::Migration[7.1]
       t.integer :level
       t.integer :difficulty
       t.boolean :is_multiple_choice
+      t.text :starter_code
+      t.text :answer_sample
       t.datetime :reviewed_at
       t.boolean :delete_flag, null: false, default: false
 
