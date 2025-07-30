@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_28_072902) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_30_012611) do
   create_table "answers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "problem_id"
@@ -38,6 +38,18 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_28_072902) do
     t.index ["problem_id"], name: "index_options_on_problem_id"
   end
 
+  create_table "problem_assets", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "problem_id", null: false
+    t.string "file_type", null: false
+    t.string "file_name"
+    t.string "content_type"
+    t.text "file_url", null: false
+    t.boolean "delete_flag", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["problem_id"], name: "index_problem_assets_on_problem_id"
+  end
+
   create_table "problems", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "title", null: false
     t.text "body"
@@ -48,6 +60,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_28_072902) do
     t.integer "level"
     t.integer "difficulty"
     t.boolean "is_multiple_choice"
+    t.text "starter_code"
+    t.text "answer_sample"
     t.datetime "reviewed_at"
     t.boolean "delete_flag", default: false, null: false
     t.datetime "created_at", null: false
@@ -88,6 +102,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_28_072902) do
   add_foreign_key "answers", "problems"
   add_foreign_key "answers", "users"
   add_foreign_key "options", "problems"
+  add_foreign_key "problem_assets", "problems"
   add_foreign_key "problems", "statuses"
   add_foreign_key "problems", "tags"
   add_foreign_key "problems", "users", column: "creator_id"
