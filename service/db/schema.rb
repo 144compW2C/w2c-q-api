@@ -31,7 +31,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_30_012611) do
     t.text "option_name"
     t.text "content"
     t.text "language"
-    t.text "editor_template"
     t.boolean "delete_flag", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
