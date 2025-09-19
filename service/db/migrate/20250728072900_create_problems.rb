@@ -10,8 +10,7 @@ class CreateProblems < ActiveRecord::Migration[7.1]
       t.integer :level
       t.integer :difficulty
       t.boolean :is_multiple_choice
-      t.text :starter_code
-      t.text :answer_sample
+      t.text :model_answer
       t.datetime :reviewed_at
       t.boolean :delete_flag, null: false, default: false
 

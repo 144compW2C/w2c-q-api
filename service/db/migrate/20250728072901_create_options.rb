@@ -5,7 +5,6 @@ class CreateOptions < ActiveRecord::Migration[7.1]
       t.text :input_type, null: false
       t.text :option_name
       t.text :content
-      t.text :language
       t.boolean :delete_flag, null: false, default: false
       t.timestamps
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_30_012611) do
+ActiveRecord::Schema[7.1].define(version: 2025_09_19_154931) do
   create_table "answers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "problem_id"
@@ -30,7 +30,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_30_012611) do
     t.text "input_type", null: false
     t.text "option_name"
     t.text "content"
-    t.text "language"
     t.boolean "delete_flag", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -46,6 +45,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_30_012611) do
     t.boolean "delete_flag", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "context_type"
     t.index ["problem_id"], name: "index_problem_assets_on_problem_id"
   end
 
@@ -59,8 +59,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_30_012611) do
     t.integer "level"
     t.integer "difficulty"
     t.boolean "is_multiple_choice"
-    t.text "starter_code"
-    t.text "answer_sample"
+    t.text "model_answer"
     t.datetime "reviewed_at"
     t.boolean "delete_flag", default: false, null: false
     t.datetime "created_at", null: false
