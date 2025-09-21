@@ -6,9 +6,6 @@ class Auth::AuthenticationController < ApplicationController
       render json: {
         name: user.name,
         email: user.email
-        # ,
-        # role: user.role,
-        # class_name: user.class_name,
       }, status: :created
     else
       render json: {
