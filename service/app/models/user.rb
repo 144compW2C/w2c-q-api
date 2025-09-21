@@ -10,7 +10,7 @@ class User < ApplicationRecord
   # 'general' または 'reviewer' しか入れないように制限。
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :password, presence: true, length: { minimum: 6 }  
+  validates :password, presence: true, length: { minimum: 8 }  
   validates :role, presence: true, inclusion: { in: %w[general reviewer] }
 
   # 論理削除を扱うスコープ（任意）
