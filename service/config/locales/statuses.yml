@@ -1,0 +1,7 @@
+ja:
+    statuses:
+        draft: "下書き"
+        pending: "承認待ち"
+        published: "公開中"
+        returned: "返却"
+        rejected: "却下"
