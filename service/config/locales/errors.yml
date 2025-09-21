@@ -1,0 +1,7 @@
+ja:
+    errors:
+        messages:
+            not_found: "対象が見つかりませんでした"
+            deleted: "このリソースは削除されています"
+            unauthorized: "認証エラーが発生しました"
+            invalid_token: "トークンが無効です。再ログインしてください。"
