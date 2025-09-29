@@ -5,11 +5,11 @@ Rails.application.routes.draw do
   end
 
   # 一般利用者向けAPI
-  resources :problems, only: [:index, :show]
-    get 'problems/modelAnswers/:id', to: 'problems#model_answer'
+  resources :problems, controller: 'problems/problems', only: [:index, :show]
+  get 'problems/modelAnswers/:id', to: 'problems/problems#model_answer'
 
   namespace :storage do
-    resources :answers, only: [:index, :show, :create, :update]
+    resources :answers,  only: [:index, :show, :create, :update]
     resources :problems, only: [:create, :update]
   end
 
