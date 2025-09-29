@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_09_19_154931) do
+ActiveRecord::Schema[7.1].define(version: 2025_09_29_060033) do
   create_table "answers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "problem_id"
@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_19_154931) do
     t.boolean "delete_flag", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "lock_version", default: 0, null: false
     t.index ["problem_id"], name: "index_answers_on_problem_id"
     t.index ["selected_option_id"], name: "index_answers_on_selected_option_id"
     t.index ["user_id"], name: "index_answers_on_user_id"
@@ -33,6 +34,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_19_154931) do
     t.boolean "delete_flag", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "lock_version", default: 0, null: false
     t.index ["problem_id"], name: "index_options_on_problem_id"
   end
 
@@ -46,6 +48,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_19_154931) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "context_type"
+    t.integer "lock_version", default: 0, null: false
     t.index ["problem_id"], name: "index_problem_assets_on_problem_id"
   end
 
@@ -64,6 +67,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_19_154931) do
     t.boolean "delete_flag", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "lock_version", default: 0, null: false
     t.index ["creator_id"], name: "index_problems_on_creator_id"
     t.index ["reviewer_id"], name: "index_problems_on_reviewer_id"
     t.index ["status_id"], name: "index_problems_on_status_id"
@@ -93,6 +97,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_19_154931) do
     t.boolean "delete_flag", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "lock_version", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
