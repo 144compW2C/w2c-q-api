@@ -37,7 +37,7 @@ class Storage::ProblemsController < ApplicationController
         end
 
         unless problem.options.exists?(content: problem.model_answer)
-          raise ActiveRecord::RecordInvalid.new(problem), "answer が options に含まれていません"
+          return render json: { error: "answer が options に含まれていません" }, status: :unprocessable_entity
         end
       end
     end
