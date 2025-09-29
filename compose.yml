@@ -5,6 +5,7 @@ services:
             MYSQL_HOST: ${MYSQL_HOST}
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            TZ: Asia/Tokyo
         ports:
             - "${RAILS_PORT}:3000"
         volumes:
