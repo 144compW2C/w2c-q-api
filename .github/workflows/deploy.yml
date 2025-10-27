@@ -1,0 +1,94 @@
+name: 🚀 VPS Deploy & Discord Notification
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    deploy:
+        name: 🔄 Deploy to VPS
+        runs-on: ubuntu-latest
+
+        steps:
+            # ① Checkout repository
+            - name: 📥 Checkout Repository
+              uses: actions/checkout@v3
+
+            # ② Install sshpass for password authentication
+            - name: 🔧 Install sshpass
+              run: sudo apt-get update && sudo apt-get install -y sshpass
+
+            # ③ Upload .env file to VPS
+            - name: 📨 Upload .env to VPS
+              run: |
+                  echo "${{ secrets.ENV_FILE }}" > .env
+                  sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} 'mkdir -p ~/w2c-q-api'
+                  sshpass -p "${{ secrets.VPS_PASSWORD }}" scp -o StrictHostKeyChecking=no .env ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:~/w2c-q-api/.env
+
+            # ④ Deploy to VPS
+            - name: 🚀 Deploy Rails API
+              run: |
+                  sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+                    BRANCH=$(echo "${{ github.ref }}" | sed 's|refs/heads/||')
+
+                    echo "📁 Preparing w2c-q-api directory..."
+                    if [ ! -d "$HOME/w2c-q-api/.git" ]; then
+                      echo "⚠️ .git does not exist → Removing folder and cloning fresh"
+                      rm -rf $HOME/w2c-q-api
+                      git clone https://github.com/${{ github.repository }} $HOME/w2c-q-api
+                    else
+                      echo "📥 Updating existing repository (git pull)..."
+                      cd $HOME/w2c-q-api
+                      git reset --hard
+                      git clean -fd
+                      git pull origin $BRANCH
+                    fi
+
+                    echo "📂 Navigating to w2c-q-api directory..."
+                    cd $HOME/w2c-q-api
+
+                    echo "� Stopping and removing old containers..."
+                    docker-compose down
+
+                    echo "🧹 Cleaning up old images..."
+                    docker-compose rm -f
+
+                    echo "🐳 Building and starting fresh containers..."
+                    docker-compose up -d --build --force-recreate
+
+                    echo "⏳ Waiting for services to be ready..."
+                    sleep 15
+
+                    echo "🗄️ Running database migrations..."
+                    docker-compose exec -T web rails db:create db:migrate
+
+                    echo "✅ Fresh deployment completed!"
+
+                    echo "✅ Deployment completed successfully!"
+                  EOF
+
+    # ⑤ Success notification
+    notify-success:
+        needs: deploy
+        if: success()
+        runs-on: ubuntu-latest
+        steps:
+            - name: ✅ Discord Notification (Success)
+              run: |
+                  curl -X POST -H "Content-Type: application/json" \
+                  -d '{
+                    "content": "<@852754282812801024> <@774622976342753300>\n**✅ デプロイが正常に完了しました！**\n📦 リポジトリ: ${{ github.repository }}\n🌿 ブランチ: ${{ github.ref_name }}\n👤 実行者: ${{ github.actor }}"
+                  }' ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+    # ⑥ Failure notification
+    notify-failure:
+        needs: deploy
+        if: failure()
+        runs-on: ubuntu-latest
+        steps:
+            - name: ❌ Discord Notification (Failure)
+              run: |
+                  curl -X POST -H "Content-Type: application/json" \
+                  -d '{
+                    "content": "<@852754282812801024> <@774622976342753300>\n**❌ デプロイに失敗しました！**\n📦 リポジトリ: ${{ github.repository }}\n🌿 ブランチ: ${{ github.ref_name }}\n👤 実行者: ${{ github.actor }}"
+                  }' ${{ secrets.DISCORD_WEBHOOK_URL }}
