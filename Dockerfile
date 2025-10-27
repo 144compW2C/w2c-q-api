@@ -17,7 +17,7 @@ RUN bundle install
 COPY . .
 
 # ポート解放
-EXPOSE 3000
+EXPOSE 8080
 
 # Rails起動コマンド
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["rails", "server", "-b", "0.0.0.0", "-p", "8080"]
