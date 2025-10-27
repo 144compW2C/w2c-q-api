@@ -1,0 +1,22 @@
+# Database data
+db_data/
+
+# Git
+.git/
+.gitignore
+
+# Logs
+*.log
+log/
+tmp/
+
+# Environment files (will be copied separately)
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
