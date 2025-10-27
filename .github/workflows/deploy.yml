@@ -62,6 +62,9 @@ jobs:
                     echo "🗄️ Running database migrations..."
                     docker compose exec -T web rails db:create db:migrate
 
+                    echo "🌱 Seeding database..."
+                    docker compose exec -T web rails db:seed
+
                     echo "✅ Fresh deployment completed!"
 
                     echo "✅ Deployment completed successfully!"
