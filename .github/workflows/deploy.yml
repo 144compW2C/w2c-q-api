@@ -47,20 +47,20 @@ jobs:
                     echo "📂 Navigating to w2c-q-api directory..."
                     cd $HOME/w2c-q-api
 
-                    echo "� Stopping and removing old containers..."
-                    docker-compose down
+                    echo "🛑 Stopping and removing old containers..."
+                    docker compose down
 
                     echo "🧹 Cleaning up old images..."
-                    docker-compose rm -f
+                    docker compose rm -f
 
                     echo "🐳 Building and starting fresh containers..."
-                    docker-compose up -d --build --force-recreate
+                    docker compose up -d --build --force-recreate
 
                     echo "⏳ Waiting for services to be ready..."
                     sleep 15
 
                     echo "🗄️ Running database migrations..."
-                    docker-compose exec -T web rails db:create db:migrate
+                    docker compose exec -T web rails db:create db:migrate
 
                     echo "✅ Fresh deployment completed!"
 
