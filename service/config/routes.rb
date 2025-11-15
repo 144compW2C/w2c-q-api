@@ -5,8 +5,10 @@ Rails.application.routes.draw do
   end
 
   # 一般利用者向けAPI
-  resources :problems, controller: 'problems/problems', only: [:index, :show]
-  get 'problems/modelAnswers/:id', to: 'problems/problems#model_answer'
+  resources :problems, controller: 'problems/problems', only: [:index, :show] do
+    get 'problems/modelAnswers/:id', to: 'problems/problems#model_answer'
+    resources :options, only: [:index], module: :problems
+  end
 
   namespace :storage do
     resources :answers,  only: [:index, :show, :create, :update]
@@ -24,6 +26,8 @@ Rails.application.routes.draw do
   # その他管理リソース
   resources :tags, only: [:index, :show]
   resources :statuses, only: [:index, :show]
+    get  '/status',     to: 'statuses#index'
+    get  '/status/:id', to: 'statuses#show'
   resources :users, only: [:index, :show, :update]
 
 end
