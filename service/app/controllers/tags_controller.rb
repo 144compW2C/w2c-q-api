@@ -1,5 +1,7 @@
 # app/controllers/tags_controller.rb
 class TagsController < ApplicationController
+  before_action :authenticate_request!
+
   def index
     tags = Tag.where(delete_flag: false).order(:id)
     render json: tags.as_json(only: [:id, :tag_name])
