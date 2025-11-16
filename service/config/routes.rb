@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root "health#index"
   namespace :auth do
     post 'login',    to: 'authentication#login'
     post 'register', to: 'authentication#register'
