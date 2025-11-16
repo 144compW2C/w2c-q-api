@@ -1,4 +1,6 @@
 class StatusesController < ApplicationController
+  before_action :authenticate_request!
+  
   def index
     statuses = Status.where(delete_flag: false).order(:id)
     render json: statuses.as_json(only: [:id, :status_name])
