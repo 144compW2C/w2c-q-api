@@ -1,5 +1,21 @@
 ja:
     activerecord:
         errors:
+            models:
+                user:
+                    attributes:
+                        email:
+                            taken: "このメールアドレスはすでに登録されています"
+                        name:
+                            blank: "名前を入力してください"
             messages:
-                too_short: "は%{count}文字以上で入力してください"
+                record_invalid: "バリデーションに失敗しました"
+                blank: "入力してください"
+                taken: "すでに存在しています"
+
+    errors:
+        format: "%{attribute}%{message}"
+        messages:
+            taken: "すでに存在しています"
+            blank: "入力してください"
+            invalid: "正しくありません"
