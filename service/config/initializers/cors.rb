@@ -15,10 +15,14 @@
 #   end
 # end
 
+# config/initializers/cors.rb
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    # フロントのオリジンを許可
-    origins 'http://localhost:5173','http://localhost:5174','http://localhost:5175','http://localhost:5176', 'http://153.126.190.250' # 必要に応じて追加
+    origins 'http://localhost:5173',
+            'http://localhost:5174',
+            'http://localhost:5175',
+            'http://localhost:5176',
+            'http://153.126.190.250' # 必要に応じて追加
 
     resource '*',
               headers: :any,
